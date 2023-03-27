@@ -1,0 +1,29 @@
+{
+	"exposed": true, 
+	"authentication": null,
+
+	"mime_mapping": [{
+		"extension": "jpg",
+		"mimetype": "image/jpeg"
+	}],
+	"prevent_xsrf" : false,
+	"force_ssl": false,
+	"enable_etags": true,
+	"anonymous_connection": "Applications.oDataService::anonuser",
+	"cors": [{
+		"enabled": true,
+		"allowMethods": ["GET","POST","PUT","DELETE", "HEAD"],
+		"allowOrigin": ["*"]
+	}],
+	"allowHeaders": [
+		"Accept",
+		"Authorization",
+		"Content-Type",
+		"X-CSRF-Token",
+		"Access-Control-Allow-Origin"
+	],
+	"exposeHeaders": [
+		"x-csrf-token"
+	],
+	"cache_control": "no-cache, no-store"
+}

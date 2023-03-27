@@ -1,0 +1,16 @@
+// To define an XS OData service, you can use the following syntax.
+// In the example below Aggregation, Modification and Association are defined.
+
+service  { 
+
+// SAP HANA Tables
+"Holiday"."Applications.Holiday.Artifacts.Tables::HT_HOLIDAYS" as "Holidays";
+"Holiday"."Applications.Holiday.Artifacts.Tables::HT_HOLIDAY_ID" as "Holiday_MD";
+"Holiday"."Applications.Holiday.Artifacts.Tables::HT_PROVINCE_ID" as "Province_MD";
+
+// SAP HANA Views
+"_SYS_BIC"."Applications.Holiday.Artifacts.Views/CVC_HOLIDAYS" 
+with ("HolidayDate", "HolidayID", "ProvinceID", "ProvinceText", "HolidayText")
+key generate local "GenID"; 
+
+}  
