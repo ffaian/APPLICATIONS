@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CVC_HOLIDAYS" applyPrivilegeType="NONE" checkAnalyticPrivileges="false" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="TREE_BASED" dataCategory="DIMENSION" enforceSqlExecution="true" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+<origin/>
+  <descriptions defaultDescription="Calculation Views for Holidays"/>
+  <metadata changedAt="2020-10-15 15:44:05.898"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="33"/>
+  <dataSources>
+    <DataSource id="Applications.Holiday.Artifacts.Tables::HT_HOLIDAYS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Holiday" columnObjectName="Applications.Holiday.Artifacts.Tables::HT_HOLIDAYS"/>
+    </DataSource>
+    <DataSource id="Applications.Holiday.Artifacts.Tables::HT_PROVINCE_ID" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Holiday" columnObjectName="Applications.Holiday.Artifacts.Tables::HT_PROVINCE_ID"/>
+    </DataSource>
+    <DataSource id="Applications.Holiday.Artifacts.Tables::HT_HOLIDAY_ID" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Holiday" columnObjectName="Applications.Holiday.Artifacts.Tables::HT_HOLIDAY_ID"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Pj_Holidays">
+      <descriptions>
+        <comment text=""/>
+      </descriptions>
+      <viewAttributes>
+        <viewAttribute id="HolidayDate"/>
+        <viewAttribute id="HolidayID"/>
+        <viewAttribute id="ProvinceID"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Applications.Holiday.Artifacts.Tables::HT_HOLIDAYS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="HolidayDate" source="HolidayDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HolidayID" source="HolidayID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProvinceID" source="ProvinceID"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="pj_Province">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ProvinceID"/>
+        <viewAttribute id="ProvinceText"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Applications.Holiday.Artifacts.Tables::HT_PROVINCE_ID">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProvinceID" source="ProvinceID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProvinceText" source="ProvinceText"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="join_Holidays_1" joinType="referential" cardinality="CN_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="HolidayDate"/>
+        <viewAttribute id="HolidayID"/>
+        <viewAttribute id="ProvinceID"/>
+        <viewAttribute id="ProvinceText"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Pj_Holidays">
+        <mapping xsi:type="Calculation:AttributeMapping" target="HolidayDate" source="HolidayDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HolidayID" source="HolidayID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProvinceID" source="ProvinceID"/>
+      </input>
+      <input node="#pj_Province">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProvinceText" source="ProvinceText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProvinceID" source="ProvinceID"/>
+      </input>
+      <joinAttribute name="ProvinceID"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="join_Holidays_2" joinType="referential" cardinality="CN_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="HolidayDate"/>
+        <viewAttribute id="HolidayID"/>
+        <viewAttribute id="ProvinceID"/>
+        <viewAttribute id="ProvinceText"/>
+        <viewAttribute id="HolidayText"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#join_Holidays_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="HolidayDate" source="HolidayDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HolidayID" source="HolidayID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProvinceID" source="ProvinceID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ProvinceText" source="ProvinceText"/>
+      </input>
+      <input node="#Applications.Holiday.Artifacts.Tables::HT_HOLIDAY_ID">
+        <mapping xsi:type="Calculation:AttributeMapping" target="HolidayText" source="HolidayText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HolidayID" source="HolidayID"/>
+      </input>
+      <joinAttribute name="HolidayID"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="join_Holidays_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="HolidayDate" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Holiday Date"/>
+        <keyMapping columnObjectName="join_Holidays_2" columnName="HolidayDate"/>
+      </attribute>
+      <attribute id="HolidayID" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Holiday ID"/>
+        <keyMapping columnObjectName="join_Holidays_2" columnName="HolidayID"/>
+      </attribute>
+      <attribute id="ProvinceID" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Province ID"/>
+        <keyMapping columnObjectName="join_Holidays_2" columnName="ProvinceID"/>
+      </attribute>
+      <attribute id="ProvinceText" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Province Name"/>
+        <keyMapping columnObjectName="join_Holidays_2" columnName="ProvinceText"/>
+      </attribute>
+      <attribute id="HolidayText" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Holiday Name"/>
+        <keyMapping columnObjectName="join_Holidays_2" columnName="HolidayText"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/></shape>
+      <shape expanded="true" modelObjectName="Pj_Holidays" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="pj_Province" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="join_Holidays_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="join_Holidays_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>
