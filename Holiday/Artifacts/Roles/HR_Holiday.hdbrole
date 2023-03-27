@@ -1,0 +1,6 @@
+role Applications.Holiday.Artifacts.Roles::HR_Holiday
+{
+schema Applications.Holiday.Artifacts.Schema:Holiday.hdbschema: EXECUTE, SELECT, INSERT, UPDATE, DELETE;
+
+
+}

@@ -1,0 +1,16 @@
+// To define an HDB table with main sql type columns, you can use the following code.
+// In the example below a schema should exist.
+
+
+table.schemaName = "Holiday";
+table.tableType = COLUMNSTORE; // ROWSTORE is an alternative value
+
+
+table.columns =
+ [
+    {name = "HolidayDate";  sqlType = DATE;  nullable = false; comment = "Holiday Date"; },
+    {name = "ProvinceID";  sqlType = VARCHAR;  length = 2; comment = "Province ID"; },
+    {name = "HolidayID";  sqlType = NVARCHAR; length = 2; comment = "Holiday ID";} 
+];
+
+table.primaryKey.pkcolumns = ["HolidayDate", "ProvinceID"];
